@@ -15,6 +15,7 @@ interface Post {
   title: string;
   slug: string;
   content_html: string;
+  comments: Comment[];
 }
 
 async function getPost(slug: string): Promise<Post | null> {
