@@ -13,13 +13,13 @@ interface Comment {
 interface Post {
   id: string;
   title: string;
-  content: string;
-  comments: Comment[];
+  slug: string;
+  content_html: string;
 }
 
-async function getPost(id: string): Promise<Post | null> {
+async function getPost(slug: string): Promise<Post | null> {
   try {
-    const res = await axios.get(`/posts/${id}`);
+    const res = await axios.get(`/posts/${slug}`);
     return res.data.data.post;
   } catch (error) {
     if (error.response?.status === 404) {
@@ -30,9 +30,9 @@ async function getPost(id: string): Promise<Post | null> {
   }
 }
 
-export default function PostPage({ params }: { params: { id: string } }) {
+export default function PostPage({ params }: { params: { slug: string } }) {
   const resolvedParams = use(params);
-  const post = use(getPost(resolvedParams.id));
+  const post = use(getPost(resolvedParams.slug));
 
   if (!post) {
     notFound();
@@ -43,8 +43,8 @@ export default function PostPage({ params }: { params: { id: string } }) {
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
 
       <div
-        // className="prose dark:prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        className="prose dark:prose-invert max-w-none"
+        dangerouslySetInnerHTML={{ __html: post.content_html }}
       />
 
       <h2 className="text-2xl font-bold mb-4 mt-8">Comments</h2>

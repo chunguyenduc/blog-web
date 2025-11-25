@@ -7,7 +7,7 @@ interface Post {
   id: string;
   slug: string;
   title: string;
-  content: string;
+  content_html: string;
 }
 
 interface PaginatedPosts {
@@ -41,12 +41,12 @@ export default function Home({
       <div className="grid gap-8">
         {posts && posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.id} className="border p-4 rounded-lg">
+            <div key={post.slug} className="border p-4 rounded-lg">
               <h2 className="text-2xl font-bold mb-2">
-                <Link href={`/post/${post.id}`}>{post.title}</Link>
+                <Link href={`/post/${post.slug}`}>{post.title}</Link>
               </h2>
               <SanitizedHtml
-                html={post.content.substring(0, 150) + "..."}
+                html={post.content_html.substring(0, 150) + "..."}
                 className="text-gray-600"
               />
             </div>
