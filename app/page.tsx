@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { use } from "react";
 import axios from "@/lib/axios";
+import "./page.css";
 import SanitizedHtml from "@/components/SanitizedHtml";
 
 interface Post {
@@ -8,6 +9,7 @@ interface Post {
   slug: string;
   title: string;
   content_html: string;
+  created_at: string;
 }
 
 interface PaginatedPosts {
@@ -36,19 +38,20 @@ export default function Home({
   const posts = use(getPosts(page, limit));
 
   return (
-    <div>
+    <div className="">
       <h1 className="text-4xl font-bold mb-8">Blog Posts</h1>
-      <div className="grid gap-8">
+      <div className="">
         {posts && posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.slug} className="border p-4 rounded-lg">
+            <div key={post.slug} className="post">
               <h2 className="text-2xl font-bold mb-2">
                 <Link href={`/post/${post.slug}`}>{post.title}</Link>
               </h2>
-              <SanitizedHtml
-                html={post.content_html.substring(0, 150) + "..."}
-                className="text-gray-600"
-              />
+              <p
+                className="text-sm text-gray-500 mb-4"
+              >{`Posted on ${new Date(
+                post.created_at
+              ).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}`}</p>
             </div>
           ))
         ) : (
