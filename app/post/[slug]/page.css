@@ -1,0 +1,11 @@
+.post-container {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+}
+
+.post-container {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}

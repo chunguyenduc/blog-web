@@ -38,15 +38,16 @@ export default function Home({
   const posts = use(getPosts(page, limit));
 
   return (
-    <div className="">
+    <div>
       <h1 className="text-4xl font-bold mb-8">Blog Posts</h1>
+      <div className="post-grid">
       <div className="">
         {posts && posts.length > 0 ? (
           posts.map((post) => (
             <div key={post.slug} className="post">
-              <h2 className="text-2xl font-bold mb-2">
+              <h3 className="text-2xl font-bold mb-2">
                 <Link href={`/post/${post.slug}`}>{post.title}</Link>
-              </h2>
+              </h3>
               <p
                 className="text-sm text-gray-500 mb-4"
               >{`Posted on ${new Date(
@@ -58,20 +59,21 @@ export default function Home({
           <p>No posts found.</p>
         )}
       </div>
-      <div className="flex justify-between mt-8">
+
+      <div className="pagination-container mt-8">
         <Link
           href={`/?page=${page > 1 ? page - 1 : 1}`}
-          className={`px-4 py-2 rounded-lg ${page <= 1 ? "bg-gray-300" : "bg-blue-500 text-white"
-            }`}
+          className={`px-4 py-2 rounded-lg ${page <= 1 ? "bg-gray-300" : "bg-blue-500 text-white"}`}
         >
-          Previous
+          Previous Page
         </Link>
         <Link
           href={`/?page=${page + 1}`}
           className="px-4 py-2 rounded-lg bg-blue-500 text-white"
         >
-          Next
+          Next Page
         </Link>
+      </div>
       </div>
     </div>
   );

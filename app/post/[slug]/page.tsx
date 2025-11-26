@@ -2,6 +2,7 @@ import CommentForm from "@/components/CommentForm";
 import { notFound } from "next/navigation";
 import axios from "@/lib/axios";
 import { use } from "react";
+import "./page.css"
 
 interface Comment {
   id: string;
@@ -40,11 +41,9 @@ export default function PostPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-
+    <div className="post-container">
+      <h1>{post.title}</h1>
       <div
-        className="prose dark:prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: post.content_html }}
       />
 
