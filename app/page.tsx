@@ -2,7 +2,6 @@ import Link from "next/link";
 import { use } from "react";
 import axios from "@/lib/axios";
 import "./page.css";
-import SanitizedHtml from "@/components/SanitizedHtml";
 
 interface Post {
   id: string;
@@ -39,14 +38,14 @@ export default function Home({
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-8">Blog Posts</h1>
+      <h1 className="text-4xl font-bold mb-8"></h1>
       <div className="post-grid">
       <div className="">
         {posts && posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.slug} className="post">
+            <div key={post.id} className="post">
               <h3 className="text-2xl font-bold mb-2">
-                <Link href={`/post/${post.slug}`}>{post.title}</Link>
+                <Link href={`/post/${post.id}`}>{post.title}</Link>
               </h3>
               <p
                 className="text-sm text-gray-500 mb-4"

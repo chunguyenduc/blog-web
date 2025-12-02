@@ -19,9 +19,9 @@ interface Post {
   comments: Comment[];
 }
 
-async function getPost(slug: string): Promise<Post | null> {
+async function getPost(id: string): Promise<Post | null> {
   try {
-    const res = await axios.get(`/posts/${slug}`);
+    const res = await axios.get(`/posts/${id}`);
     return res.data.data.post;
   } catch (error) {
     if (error.response?.status === 404) {
@@ -32,9 +32,9 @@ async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
-export default function PostPage({ params }: { params: { slug: string } }) {
+export default function PostPage({ params }: { params: { id: string } }) {
   const resolvedParams = use(params);
-  const post = use(getPost(resolvedParams.slug));
+  const post = use(getPost(resolvedParams.id));
 
   if (!post) {
     notFound();
